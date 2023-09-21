@@ -12,8 +12,8 @@
 		})
 	}
 
-	const handleClear = ()=>{
-		console.log('clear')
+	const handleClear = (index)=>{
+		todos = todos.filter((_, i) => i !== index);
 	}
 
 	$: sum = todos.reduce((value, currentTodo) => value + currentTodo.count, 0);
@@ -36,7 +36,7 @@
 		</span>
 		Multiple Counter
 	</h1>
-	{#each todos as todo}
+	{#each todos as todo, $index}
 	<div class="contaniner" class:done={todo.status}>
 		<input bind:value={todo.text} placeholder="new" />
 		<div class="counter">
@@ -58,7 +58,7 @@
 				</button>
 				<button on:click={() => (todo.count = 0)} aria-label="Increase the counter by one" class="right-button">0</button>
 			</button-group>
-			<button class="close-button" on:click={handleClear}>
+			<button class="close-button" on:click={() => handleClear($index)}>
 				<svg aria-hidden="true" viewBox="0 0 1 1">
 					<path d="M0,0 L1,1 M0,1 L1,0" />
 				</svg>
@@ -156,6 +156,7 @@
 		border: 0;
 		border-radius: 5px;
 		text-emphasis-color: white;
+		height: 40px;
 	}
 
 	.counter button:hover {

@@ -12,7 +12,7 @@
 		})
 	}
 
-	const handleClear = (index)=>{
+	const handleClear = (index:number)=>{
 		todos = todos.filter((_, i) => i !== index);
 	}
 
